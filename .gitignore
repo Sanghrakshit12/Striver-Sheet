@@ -1,0 +1,8 @@
+# Ignore executable files
+*.exe
+
+# Ignore JSON files
+*.json
+
+# Ignore Visual Studio Code C/C++ configuration files
+c_cpp_properties.json
