@@ -19,8 +19,19 @@ using namespace std;
 //     return {r,m};
 // }
 
-vector<int> Better(vector<int>&nums){
-
+vector<int> Better(vector<int> &nums){
+    int r = -1, m = -1;
+    int hash[nums.size()] = {0};
+    for (int i = 0; i < nums.size(); i++){
+        hash[nums[i] - 1]++;
+    }
+    for (int i = 0; i < nums.size(); i++){
+        if (hash[i] == 2)
+            r = i + 1;
+        if (hash[i] == 0)
+            m = i + 1;
+    }
+    return {r, m};
 }
 
 int main()
@@ -41,8 +52,9 @@ int main()
         cout << i << " ";
     }
     cout << endl;
-    vector<int>res=Better(nums);
-    for(auto i:res){
-        cout<<i<<" ";
+    vector<int> res = Better(nums);
+    for (auto i : res)
+    {
+        cout << i << " ";
     }
 }
