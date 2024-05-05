@@ -19,18 +19,37 @@ using namespace std;
 //     return {r,m};
 // }
 
-vector<int> Better(vector<int> &nums){
-    int r = -1, m = -1;
-    int hash[nums.size()] = {0};
-    for (int i = 0; i < nums.size(); i++){
-        hash[nums[i] - 1]++;
+// vector<int> Better(vector<int> &nums){
+//     int r = -1, m = -1;
+//     int hash[nums.size()] = {0};
+//     for (int i = 0; i < nums.size(); i++){
+//         hash[nums[i] - 1]++;
+//     }
+//     for (int i = 0; i < nums.size(); i++){
+//         if (hash[i] == 2)
+//             r = i + 1;
+//         if (hash[i] == 0)
+//             m = i + 1;
+//     }
+//     return {r, m};
+// }
+
+vector<int> Optimal(vector<int> &nums)
+{
+    int n = nums.size();
+    int sn = n * (n + 1) / 2;
+    int s = 0, s2 = 0;
+    int sn2 = (n * (n + 1) * (2 * n + 1)) / 6;
+    for (int i = 0; i < n; i++)
+    {
+        s += nums[i];
+        s2 += nums[i] * nums[i];
     }
-    for (int i = 0; i < nums.size(); i++){
-        if (hash[i] == 2)
-            r = i + 1;
-        if (hash[i] == 0)
-            m = i + 1;
-    }
+    int x = sn - s;
+    int y = sn2 - s2;
+    y /= x;
+    int m = (x + y) / 2;
+    int r = m - x;
     return {r, m};
 }
 
@@ -52,7 +71,7 @@ int main()
         cout << i << " ";
     }
     cout << endl;
-    vector<int> res = Better(nums);
+    vector<int> res = Optimal(nums);
     for (auto i : res)
     {
         cout << i << " ";
