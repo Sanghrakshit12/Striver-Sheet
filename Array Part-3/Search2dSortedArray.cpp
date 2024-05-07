@@ -13,23 +13,41 @@ using namespace std;
 //     return 0;
 // }
 
-bool Better(vector<vector<int>> nums, int k){
+// bool Better(vector<vector<int>> nums, int k){
+//     int n = nums.size();
+//     for (int i = 0; i < n; i++){
+//         int m = nums[i].size();
+//         int x = nums[i][0], y = nums[i][m - 1];
+//         if (k >= x && k <= y){
+//             int l = 0, h = m - 1;
+//             while (l <= h){
+//                 int m = l + (h - l) / 2;
+//                 if (k > nums[i][m])
+//                     l = m + 1;
+//                 else if (k < nums[i][m])
+//                     h = m - 1;
+//                 else
+//                     return 1;
+//             }
+//         }
+//     }
+//     return 0;
+// }
+
+bool Optimal(vector<vector<int>> nums, int k)
+{
     int n = nums.size();
-    for (int i = 0; i < n; i++){
-        int m = nums[i].size();
-        int x = nums[i][0], y = nums[i][m - 1];
-        if (k >= x && k <= y){
-            int l = 0, h = m - 1;
-            while (l <= h){
-                int m = l + (h - l) / 2;
-                if (k > nums[i][m])
-                    l = m + 1;
-                else if (k < nums[i][m])
-                    h = m - 1;
-                else
-                    return 1;
-            }
-        }
+    int m = nums[0].size();
+    int l = 0, h = (n * m) - 1;
+    while (l <= h){
+        int mid = l + (h - l) / 2;
+        int i = mid / m, j = mid % m;
+        if (k > nums[i][j])
+            l = mid + 1;
+        else if (k < nums[i][j])
+            h = mid - 1;
+        else
+            return 1;
     }
     return 0;
 }
@@ -61,5 +79,5 @@ int main()
             cout << nums[i][j] << " ";
         cout << endl;
     }
-    cout << Better(nums, k);
+    cout << Optimal(nums, k);
 }
