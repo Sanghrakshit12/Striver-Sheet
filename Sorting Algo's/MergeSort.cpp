@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// Time Complexity -> O(nlogn)
+// Space Complexity -> O(n)
+
 void Merge(vector<int> &nums, int l, int m, int h){
     int i = l, j = m + 1;
     vector<int> temp;
