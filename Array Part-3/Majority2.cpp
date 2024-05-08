@@ -1,49 +1,49 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<int> Brute(vector<int> nums)
-{
-    vector<int> res;
-    int n = nums.size();
-    for (int i = 0; i < n; i++)
-    {
-        if (res.empty() || res[0] != nums[i])
-        {
-            int c = 0;
-            for (int j = 0; j < n; j++)
-            {
-                if (nums[i] == nums[j])
-                    c++;
-            }
-            if (c > (n / 3))
-                res.push_back(nums[i]);
-        }
-        if (res.size() == 2)
-            return res;
-    }
-    return res;
-}
+// vector<int> Brute(vector<int> nums)
+// {
+//     vector<int> res;
+//     int n = nums.size();
+//     for (int i = 0; i < n; i++)
+//     {
+//         if (res.empty() || res[0] != nums[i])
+//         {
+//             int c = 0;
+//             for (int j = 0; j < n; j++)
+//             {
+//                 if (nums[i] == nums[j])
+//                     c++;
+//             }
+//             if (c > (n / 3))
+//                 res.push_back(nums[i]);
+//         }
+//         if (res.size() == 2)
+//             return res;
+//     }
+//     return res;
+// }
 
-vector<int> Better(vector<int> nums)
-{
-    vector<int> res;
-    int n = nums.size();
-    int min = (n / 3) + 1;
-    map<int, int> mpp;
-    for (int i = 0; i < n; i++)
-    {
-        mpp[nums[i]]++;
-        if (mpp[nums[i]] == min)
-        {
-            res.push_back(nums[i]);
-        }
-        if (res.size() == 2)
-        {
-            return res;
-        }
-    }
-    return res;
-}
+// vector<int> Better(vector<int> nums)
+// {
+//     vector<int> res;
+//     int n = nums.size();
+//     int min = (n / 3) + 1;
+//     map<int, int> mpp;
+//     for (int i = 0; i < n; i++)
+//     {
+//         mpp[nums[i]]++;
+//         if (mpp[nums[i]] == min)
+//         {
+//             res.push_back(nums[i]);
+//         }
+//         if (res.size() == 2)
+//         {
+//             return res;
+//         }
+//     }
+//     return res;
+// }
 
 vector<int> majorityElement(vector<int> &nums){
     vector<int> res;
