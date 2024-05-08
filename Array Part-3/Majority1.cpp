@@ -38,9 +38,17 @@ int majorityElement(vector<int> &nums)
         else
             c--;
     }
-    return x;
+    int cnt = 0;
+    for (int i = 0; i < n; i++)
+    {
+        if (nums[i] == x)
+            cnt++;
+    }
+    if (cnt > (n / 2))
+        return x;
+    else
+        return -1;
 }
-
 int main()
 {
     cout << "Enter size" << endl;
