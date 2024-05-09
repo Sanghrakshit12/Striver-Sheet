@@ -14,30 +14,51 @@ using namespace std;
 //     return res;
 // }
 
-int Merge(vector<int> &nums, int l, int m, int h)
+int Merge(vector<int> &arr, int low, int mid, int high)
 {
-    int i = l;
-    int j = m + 1;
     vector<int> temp;
-    int c = 0;
-    while (i <= m && j <= h)
+    int left = low;
+    int right = mid + 1;
+
+    int cnt = 0;
+
+    while (left <= mid && right <= high)
     {
-        if (nums[i] <= nums[j])
-            temp.push_back(nums[i++]);
+        if (arr[left] <= arr[right])
+        {
+            temp.push_back(arr[left]);
+            left++;
+        }
         else
         {
-            c += m - l + 1;
-            temp.push_back(nums[j++]);
+            temp.push_back(arr[right]);
+            cnt += (mid - left + 1);
+            right++;
         }
     }
-    while (i <= m)
-        temp.push_back(nums[i++]);
-    while (j <= h)
-        temp.push_back(nums[j++]);
-    return c;
+
+    while (left <= mid)
+    {
+        temp.push_back(arr[left]);
+        left++;
+    }
+
+    while (right <= high)
+    {
+        temp.push_back(arr[right]);
+        right++;
+    }
+
+    for (int i = low; i <= high; i++)
+    {
+        arr[i] = temp[i - low];
+    }
+
+    return cnt;
 }
 
-int Optimal(vector<int> &nums, int l, int h){
+int Optimal(vector<int> &nums, int l, int h)
+{
     int res = 0;
     if (l >= h)
         return res;
@@ -48,12 +69,14 @@ int Optimal(vector<int> &nums, int l, int h){
     return res;
 }
 
-int main(){
+int main()
+{
     cout << "Enter size" << endl;
     int n;
     cin >> n;
     vector<int> nums;
-    for (int i = 0; i < n; i++){
+    for (int i = 0; i < n; i++)
+    {
         int a;
         cin >> a;
         nums.push_back(a);
