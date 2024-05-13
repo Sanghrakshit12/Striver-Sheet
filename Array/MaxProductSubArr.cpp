@@ -1,13 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int maxProduct(vector<int> &nums)
-{
+int maxProduct(vector<int> &nums){
     int n = nums.size();
     int maxi = INT_MIN;
     int pre = 1, suf = 1;
-    for (int i = 0; i < n; i++)
-    {
+    for (int i = 0; i < n; i++){
         if (pre == 0)
             pre = 1;
         if (suf == 0)
@@ -19,8 +17,7 @@ int maxProduct(vector<int> &nums)
     return maxi;
 }
 
-int main()
-{
+int main(){
     cout << "Enter size" << endl;
     int n;
     cin >> n;
