@@ -21,8 +21,7 @@ Node *MakeList(vector<int> nums){
     int n = nums.size();
     Node *head = new Node(nums[0], nullptr);
     Node *curr = head;
-    for (int i = 1; i < n; i++)
-    {
+    for (int i = 1; i < n; i++){
         Node *temp = new Node(nums[i], nullptr);
         curr->next = temp;
         curr = temp;
@@ -45,8 +44,7 @@ Node *Reverse(Node *head){
     Node *prev = nullptr;
     Node *nxt = nullptr;
     Node *curr = head;
-    while (curr)
-    {
+    while (curr){
         nxt = curr->next;
         curr->next = prev;
         prev = curr;
