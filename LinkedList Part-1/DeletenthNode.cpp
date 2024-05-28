@@ -83,6 +83,6 @@ int main(){
     int n = nums.size();
     ListNode *head = MakeList(nums);
     Traverse(head);
-    ListNode *Head = Deletenth(head, 4);
+    ListNode *Head = Deletenth(head, 3);
     Traverse(Head);
 }
