@@ -3,32 +3,27 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class ListNode
-{
+class ListNode{
 public:
     int val;
     ListNode *next;
 
 public:
-    ListNode(int val1, ListNode *next1)
-    {
+    ListNode(int val1, ListNode *next1){
         val = val1;
         next = next1;
     }
-    ListNode(int val1)
-    {
+    ListNode(int val1){
         val = val1;
         next = nullptr;
     }
 };
 
-ListNode *MakeList(vector<int> nums)
-{
+ListNode *MakeList(vector<int> nums){
     int n = nums.size();
     ListNode *head = new ListNode(nums[0], nullptr);
     ListNode *curr = head;
-    for (int i = 1; i < n; i++)
-    {
+    for (int i = 1; i < n; i++){
         ListNode *temp = new ListNode(nums[i], nullptr);
         curr->next = temp;
         curr = temp;
@@ -36,12 +31,10 @@ ListNode *MakeList(vector<int> nums)
     return head;
 }
 
-void Traverse(ListNode *head)
-{
+void Traverse(ListNode *head){
     int length = 0;
     ListNode *k = head;
-    while (k)
-    {
+    while (k){
         cout << k->val << " ";
         k = k->next;
         length++;
@@ -74,15 +67,29 @@ void Traverse(ListNode *head)
 // }
 
 ListNode *Deletenth(ListNode *head, int n){
-
+    ListNode *slow = head;
+    ListNode *fast = head;
+    if (head == NULL)
+        return head;
+    while (n != 0){
+        fast = fast->next;
+        n--;
+    }
+    if (fast == NULL)
+        return head->next;
+    while (fast->next != NULL){
+        slow = slow->next;
+        fast = fast->next;
+    }
+    slow->next = slow->next->next;
+    return head;
 }
-
 
 int main(){
     vector<int> nums = {1, 2, 3, 4};
     int n = nums.size();
     ListNode *head = MakeList(nums);
     Traverse(head);
-    ListNode *Head = Deletenth(head, 3);
+    ListNode *Head = Deletenth(head, 4);
     Traverse(Head);
 }
