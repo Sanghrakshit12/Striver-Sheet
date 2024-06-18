@@ -1,4 +1,5 @@
 // Given an array containing N integers and an integer K Your task is to find the length of the longest Sub-Array with the sum of the elements equal to the given value K.
+// Positives only
 
 #include <bits/stdc++.h>
 using namespace std;
