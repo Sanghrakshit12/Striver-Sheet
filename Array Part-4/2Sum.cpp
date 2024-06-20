@@ -37,15 +37,12 @@ int Optimal(vector<int> nums, int target){
         sort(nums.begin(),nums.end());
         int i=0,j=n-1;
         while(i<j){
-            if(nums[i]+nums[j]>target){
+            if(nums[i]+nums[j]>target)
                 j--;
-            }
-            else if(nums[i]+nums[j]<target){
+            else if(nums[i]+nums[j]<target)
                 i++;
-            }
-            else{
+            else
                 return 1;
-            }
         }
         return 0;
 }
