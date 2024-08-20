@@ -3,20 +3,20 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int Mini(vector<int> nums){
+int Mini(vector<int> nums)
+{
     int n = nums.size();
     int l = 0, h = n - 1, mini = INT_MAX;
-    while (l <= h){
+    while (l <= h)
+    {
         int m = l + (h - l) / 2;
-          if (nums[m] <= nums[h]){
+        if (nums[m] <= nums[h])
+        {
             mini = min(mini, nums[m]);
             h = m - 1;
         }
-        if (nums[m] <= nums[h]){
-            mini = min(mini, nums[m]);
-            h = m - 1;
-        }
-        else{
+        else
+        {
             mini = min(mini, nums[l]);
             l = m + 1;
         }
