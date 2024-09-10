@@ -98,11 +98,56 @@ Node *Insert(Node *head, int val, int idx)
     return head;
 }
 
+Node* Delete(Node *head, int idx)
+{
+    if (head == NULL) return head; // Return if the list is empty
+
+    // Deleting the head node (idx == 0)
+    if (idx == 0)
+    {
+        Node* temp = head;       // Save the current head to delete
+        head = head->next;       // Move head to the next node
+        if (head != NULL)        // If the list is not empty after deletion
+            head->back = NULL;   // Update the back pointer of the new head
+        delete temp;             // Free the memory of the deleted node
+        return head;
+    }
+
+    // Traverse to find the node at index `idx`
+    Node *curr = head;
+    int id = 0;
+    while (curr != NULL && id < idx)
+    {
+        curr = curr->next;
+        id++;
+    }
+
+    // If we reached the end of the list or an invalid index
+    if (curr == NULL) return head;
+
+    // At this point, `curr` is the node to delete
+    if (curr->next != NULL) // If there's a node after `curr`
+    {
+        curr->next->back = curr->back; // Update the back pointer of the next node
+    }
+    
+    if (curr->back != NULL) // If there's a node before `curr`
+    {
+        curr->back->next = curr->next; // Update the next pointer of the previous node
+    }
+
+    delete curr; // Free the memory of the deleted node
+    return head;
+}
+
+
 int main()
 {
     vector<int> nums = {1, 2, 3, 4, 5};
     Node *head = NULL;
     head = Build(head, nums);
     head = Insert(head, 3098, 5);
-     Traverse(head);
+     head=Delete(head,5);
+      Traverse(head);
+
 }
