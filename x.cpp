@@ -1,47 +1,83 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define MAXSIZE 1005
 
-int solve(char s[MAXSIZE], char t[MAXSIZE], int k) {
-    int n = strlen(s);
-    if (n > k) return 0;  // If string length is greater than k, it's impossible
+// Function to return precedence of operators
+int prec(char c) {
+    if (c == '^')
+        return 3;
+    else if (c == '/' || c == '*')
+        return 2;
+    else if (c == '+' || c == '-')
+        return 1;
+    else
+        return -1;
+}
 
-    vector<bool> used(n, false);
-    
-    for (int i = 1; i <= k; i++) {
-        for (int j = 0; j < n; j++) {
-            if (!used[j]) {
-                char shifted = ((s[j] - 'a' + i) % 26) + 'a';
-                if (shifted == t[j]) {
-                    used[j] = true;
-                    break;
-                }
+// Function to return associativity of operators
+char associativity(char c) {
+    if (c == '^')
+        return 'R';
+    return 'L'; // Default to left-associative
+}
+
+// The main function to convert infix expression
+// to postfix expression
+void infixToPostfix(string s) {
+    stack<char> st;
+    string result;
+
+    for (int i = 0; i < s.length(); i++) {
+        char c = s[i];
+
+        // If the scanned character is
+        // an operand, add it to the output string.
+        if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'))
+            result += c;
+
+        // If the scanned character is an
+        // ‘(‘, push it to the stack.
+        else if (c == '(')
+            st.push('(');
+
+        // If the scanned character is an ‘)’,
+        // pop and add to the output string from the stack
+        // until an ‘(‘ is encountered.
+        else if (c == ')') {
+            while (st.top() != '(') {
+                result += st.top();
+                st.pop();
             }
+            st.pop(); // Pop '('
+        }
+
+        // If an operator is scanned
+        else {
+            while (!st.empty() && prec(s[i]) < prec(st.top()) ||
+                   !st.empty() && prec(s[i]) == prec(st.top()) &&
+                   associativity(s[i]) == 'L') {
+                result += st.top();
+                st.pop();
+            }
+            st.push(c);
         }
     }
 
-    // Check if all characters were successfully shifted
-    for (int i = 0; i < n; i++) {
-        if (!used[i]) return 0;
+    // Pop all the remaining elements from the stack
+    while (!st.empty()) {
+        result += st.top();
+        st.pop();
     }
 
-    return 1;
+    cout << result << endl;
 }
 
+// Driver code
 int main() {
-    char s[MAXSIZE], t[MAXSIZE];
-    int k;
-    
-    // Input strings s, t and integer k
-    scanf("%s", s);
-    scanf("%s", t);
-    scanf("%d", &k);
-    
-    // Check if the strings can be transformed with at most k operations
-    if (solve(s, t, k) == 0)
-        printf("No\n");
-    else
-        printf("Yes\n");
-    
+    string exp = "a*b+((c-d)*p-q*s)/r+m/(n*x)";
+
+    // Function call
+    infixToPostfix(exp);
+
     return 0;
 }
+ 
