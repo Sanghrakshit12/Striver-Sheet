@@ -1,83 +1,53 @@
+
+
+
 #include <bits/stdc++.h>
 using namespace std;
 
-// Function to return precedence of operators
-int prec(char c) {
-    if (c == '^')
-        return 3;
-    else if (c == '/' || c == '*')
-        return 2;
-    else if (c == '+' || c == '-')
-        return 1;
-    else
-        return -1;
-}
-
-// Function to return associativity of operators
-char associativity(char c) {
-    if (c == '^')
-        return 'R';
-    return 'L'; // Default to left-associative
-}
-
-// The main function to convert infix expression
-// to postfix expression
-void infixToPostfix(string s) {
-    stack<char> st;
-    string result;
-
-    for (int i = 0; i < s.length(); i++) {
-        char c = s[i];
-
-        // If the scanned character is
-        // an operand, add it to the output string.
-        if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'))
-            result += c;
-
-        // If the scanned character is an
-        // ‘(‘, push it to the stack.
-        else if (c == '(')
-            st.push('(');
-
-        // If the scanned character is an ‘)’,
-        // pop and add to the output string from the stack
-        // until an ‘(‘ is encountered.
-        else if (c == ')') {
-            while (st.top() != '(') {
-                result += st.top();
-                st.pop();
-            }
-            st.pop(); // Pop '('
+int countStudents(vector<int> &arr, int pages) {
+    int n = arr.size(); //size of array.
+    int students = 1;
+    long long pagesStudent = 0;
+    for (int i = 0; i < n; i++) {
+        if (pagesStudent + arr[i] <= pages) {
+            //add pages to current student
+            pagesStudent += arr[i];
         }
-
-        // If an operator is scanned
         else {
-            while (!st.empty() && prec(s[i]) < prec(st.top()) ||
-                   !st.empty() && prec(s[i]) == prec(st.top()) &&
-                   associativity(s[i]) == 'L') {
-                result += st.top();
-                st.pop();
-            }
-            st.push(c);
+            //add pages to next student
+            students++;
+            pagesStudent = arr[i];
         }
     }
-
-    // Pop all the remaining elements from the stack
-    while (!st.empty()) {
-        result += st.top();
-        st.pop();
-    }
-
-    cout << result << endl;
+    return students;
 }
 
-// Driver code
-int main() {
-    string exp = "a*b+((c-d)*p-q*s)/r+m/(n*x)";
+int findPages(vector<int>& arr, int n, int m) {
+    //book allocation impossible:
+    if (m > n) return -1;
 
-    // Function call
-    infixToPostfix(exp);
+    int low = *max_element(arr.begin(), arr.end());
+    int high = accumulate(arr.begin(), arr.end(), 0);
+    while (low <= high) {
+        int mid = (low + high) / 2;
+        int students = countStudents(arr, mid);
+        if (students > m) {
+            low = mid + 1;
+        }
+        else {
+            high = mid - 1;
+        }
+    }
+    return low;
+}
 
+int main()
+{
+    vector<int> arr = {11,33,15,62,22,15,31,60} ;
+    int n = 8;
+    int k= 3;
+    int ans = findPages(arr, n, k);
+    cout << "The answer is: " << ans << "\n";
     return 0;
 }
- 
+
