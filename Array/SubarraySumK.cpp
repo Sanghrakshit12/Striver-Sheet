@@ -6,12 +6,13 @@ int Optimal(vector<int> nums, int k)
     int n = nums.size();
     unordered_map<int, int> mpp;
     int s = 0, c = 0;
+    mpp[0]=1;
     for (int i = 0; i < n; i++)
     {
         s += nums[i];
-        if (s == k || mpp.find(s - k) != mpp.end())
-            c++;
-        mpp[s] = i;
+        int x=s-k;
+        c+=mpp[x];
+        mpp[s]++;
     }
     return c;
 }
